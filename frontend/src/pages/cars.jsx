@@ -3,7 +3,11 @@ import API from "../api/api";
 
 function Cars() {
   const [cars, setCars] = useState([]);
-  const [formData, setFormData] = useState({ name: "", number: "", pricePerDay: "" });
+  const [formData, setFormData] = useState({
+    name: "",
+    number: "",
+    pricePerDay: "",
+  });
 
   // FETCH CARS
   const fetchCars = async () => {
@@ -30,7 +34,7 @@ function Cars() {
 
     await API.post("/cars", {
       ...formData,
-      pricePerDay: Number(formData.pricePerDay)
+      pricePerDay: Number(formData.pricePerDay),
     });
 
     //Frontend waits for backend response
@@ -41,33 +45,78 @@ function Cars() {
   // DELETE CAR
   const deleteCar = async (id) => {
     await API.delete(`/cars/${id}`);
-    setCars(cars.filter(car => car._id !== id));
+    setCars(cars.filter((car) => car._id !== id));
   };
 
   return (
-    <div>
+    <div className="space-y-6">
+      <h1 className="text-xl font-semibold">Cars</h1>
 
-      <h2>Add your Car</h2>
+      {/* ADD CAR SECTION */}
+      <div className="border rounded p-4 bg-white space-y-4">
+        <h2 className="text-lg font-medium">Add your Car</h2>
 
-      <form onSubmit={addCar}>
-        <input placeholder="Car Name" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} />
-        <input placeholder="Car Number" value={formData.number} onChange={(e) => setFormData({ ...formData, number: e.target.value })} />
-        <input placeholder="Price Per Day" type="number" value={formData.pricePerDay} onChange={(e) => setFormData({ ...formData, pricePerDay: e.target.value })} />
-        <button type="submit">Add Car</button>
-      </form>
+        <form onSubmit={addCar} className="space-y-3">
+          <input
+            className="w-full border border-gray-300 rounded px-3 py-2"
+            placeholder="Car Name"
+            value={formData.name}
+            onChange={(e) =>
+              setFormData({ ...formData, name: e.target.value })
+            }
+          />
 
-      <hr />
+          <input
+            className="w-full border border-gray-300 rounded px-3 py-2"
+            placeholder="Car Number"
+            value={formData.number}
+            onChange={(e) =>
+              setFormData({ ...formData, number: e.target.value })
+            }
+          />
 
-      <h2>Cars List</h2>
+          <input
+            type="number"
+            className="w-full border border-gray-300 rounded px-3 py-2"
+            placeholder="Price Per Day"
+            value={formData.pricePerDay}
+            onChange={(e) =>
+              setFormData({ ...formData, pricePerDay: e.target.value })
+            }
+          />
 
-      {cars.map((car) => (
-        <div key={car._id}>
-          <p> {car.name} — {car.number} — ₹{car.pricePerDay}</p>
-          <button onClick={() => deleteCar(car._id)}>Delete</button>
-        </div>
-      ))}
+          <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Add Car</button>
+        </form>
+      </div>
+
+
+      {/* CARS LIST SECTION */}
+      <div className="border rounded p-4 bg-white space-y-4">
+        <h2 className="text-lg font-medium">Cars List</h2>
+
+        {cars.length === 0 && (
+          <p className="text-sm text-gray-600">No cars added yet.</p>
+        )}
+
+        {cars.map((car) => (
+          <div key={car._id} className="flex justify-between items-center border-b py-2 last:border-b-0">
+            <div>
+              <p className="font-medium">{car.name}</p>
+              <p className="text-sm text-gray-600">{car.number} — ₹{car.pricePerDay} / day</p>
+            </div>
+
+            <button
+              onClick={() => deleteCar(car._id)}
+              className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700">Delete
+            </button>
+
+          </div>
+        ))}
+      </div>
+
 
     </div>
+
   );
 }
 

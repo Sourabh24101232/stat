@@ -18,8 +18,4 @@ const deleteCar = async (req, res) => {
   res.json({ message: "Car deleted" });
 };
 
-module.exports = {
-  getCars,
-  addCar,
-  deleteCar
-};
+module.exports = { getCars, addCar,deleteCar};

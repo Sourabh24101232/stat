@@ -14,6 +14,18 @@ const carRoutes = require("./routes/car.routes");
 app.use("/cars", carRoutes);// /cars tells Express: “Send this request to car.routes.js
 //-------------------------------------------------------------------
 
+//Error handling----------------------------------------------------
+app.use((req, res, next) => {
+  res.status(404).json({
+    success: false,
+    message: "Route not found",
+  });
+});
+
+const { errorHandler } = require("./middlewares/error.middleware");
+app.use(errorHandler);//handle errors
+//-------------------------------------------------------------------
+
 // MongoDB connection------------------------------------------------
 mongoose
   .connect(process.env.MONGO_URL)

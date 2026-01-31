@@ -1,10 +1,10 @@
-**# STAT – Room / Flat Booking Platform**
+**# STAT – Car Booking Platform**
 
 
 
 **## Overview**
 
-**STAT is a full-stack web application that allows owners to list rooms or flats**
+**STAT is a full-stack web application that allows owners to list cars**
 
 **and users to search and send booking requests.**
 
@@ -22,7 +22,7 @@
 
 **Owner:**
 
-**- List property**
+**- List cars**
 
 **- Manage availability**
 
@@ -42,7 +42,7 @@
 
 **## Booking Flow**
 
-**1. Owner lists property**
+**1. Owner lists cars**
 
 **2. User searches**
 
